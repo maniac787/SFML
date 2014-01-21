@@ -7,22 +7,24 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
+using namespace sf;
+
 int main() {
     // Create the main window
-    sf::RenderWindow App(sf::VideoMode(800, 600), "SFML window");
+    RenderWindow App(VideoMode(800, 600), "Ejemplo de sfml");
     // Load a sprite to display
-    sf::Image Image;
+    Image Image;
     if (!Image.LoadFromFile("cute_image.jpg"))
         return EXIT_FAILURE;
-    sf::Sprite Sprite(Image);
+    Sprite Sprite(Image);
     // Create a graphical string to display
-    sf::Font Arial;
-    /*if (!Arial.LoadFromFile("arial.ttf")){
+    Font Arial;
+    if (!Arial.LoadFromFile("/usr/share/fonts/truetype/LiberationMono-Italic.ttf")){
         return EXIT_FAILURE;
-    }*/
-    sf::String Text("Hello SFML", Arial, 50);
+    }
+    String Text("Hello SFML", Arial, 50);
     // Load a music to play
-    sf::Music Music;
+    Music Music;
     if (!Music.OpenFromFile("nice_music.ogg")) {
         return EXIT_FAILURE;
     }
@@ -34,15 +36,16 @@ int main() {
     while (Running) {
         while (App.IsOpened()) {
             // Process events
-            sf::Event Event;
+            Event Event;
             while (App.GetEvent(Event)) {
                 // Close window : exit
-                if (Event.Type == sf::Event::Closed){
+                if (Event.Type == Event::Closed){
+                    Running = false;
                     App.Close();
                 }
                 
                 // Escape key pressed
-                if ((Event.Type == sf::Event::KeyPressed) && (Event.Key.Code == sf::Key::Escape)){
+                if ((Event.Type == Event::KeyPressed) && (Event.Key.Code == Key::Escape)){
                     Running = false;
                     App.Close();
                 }
